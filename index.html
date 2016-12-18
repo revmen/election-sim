@@ -17,7 +17,7 @@
 <body>
 	<div id="app" class="container">
 		<div class="row">
-			<div class="six columns">
+			<div class="five columns">
 				
 				<h5>Candidates</h5>
 				<table>
@@ -39,14 +39,21 @@
 					</tbody>
 				</table>
 				
-							</div>
-			<div class="six columns">
-				<h5>Notes</h5>
-				<p>It ain't pretty, but it works (I think)</p>
-				<p><b>Will not work on Internet Explorer</b> (sorry, not sorry)</p>
-				<p>If you change the name of a candidate you'll have to reselect them on ballots. I'll fix this... sometime. Otherwise it should be pretty straightforward</p>
-				<p>If you find a bug or would like to contribute -> <a href="https://github.com/revmen/election-sim">https://github.com/revmen/election-sim</a></p>
 			</div>
+			
+			<div class="seven columns">
+				
+				<h5>Scenarios</h5>
+				<table>
+					<tbody>
+						<tr v-for="scenario in scenarios">
+							<td><input type="button" v-bind:value="scenario.name" v-on:click="loadScenario(scenario.key)" /></td>
+							<td>{{ scenario.description }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
 		</div>
 		
 		<div class="row">
@@ -140,6 +147,15 @@
 				</table>
 			</div>
 		</div>
+		
+		<div class="row">
+			<div class="twelve columns">
+				<h5>Notes</h5>
+				<p><b>Will not work on Internet Explorer</b> (sorry, not sorry)</p>
+				<p>If you change the name of a candidate you'll have to reselect them on ballots. I'll fix this... sometime. Otherwise it should be pretty straightforward</p>
+				<p>If you find a bug or would like to contribute -> <a href="https://github.com/revmen/election-sim">https://github.com/revmen/election-sim</a></p>
+			</div>
+		</div>
 	</div>
 </body>
 
@@ -148,23 +164,23 @@
 <script src="irv.js"></script>
 <script src="fptp.js"></script>
 <script src="approval.js"></script>
+<script src="scenarios.js"></script>
 
 <script>
 
-	/* global _ Vue irvWinner pluralityWinner approvalWinner */
+	/* global _ Vue irvWinner pluralityWinner approvalWinner scenarios */
 
 	var data = {};
-	data.candidates = ["none", "Coke", "Pepsi", "Dr Pepper"];
 	
-	data.ballots = [
-		{name: "Coke Only", choices: ["Coke", "none"], count: 48},
-		{name: "Pepsi > Coke", choices: ["Pepsi", "Coke"], count: 3},
-		{name: "Pepsi > Dr Pepper", choices: ["Pepsi", "Dr Pepper"], count: 19},
-		{name: "Dr Pepper > Pepsi", choices: ["Dr Pepper", "Pepsi"], count: 30}
-	];
+	loadScenario("irv-spoiler");
+	
+	data.scenarios = _.map(scenarios, function(s, k) {
+		return {name: s.name, key: k, description: s.description};
+	});
 	
 	var methods = {};
 	
+	methods.loadScenario = loadScenario;
 	
 	methods.addCandidateRow = function() {
 		var name = "Candidate " + data.candidates.length;
