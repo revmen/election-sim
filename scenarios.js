@@ -35,6 +35,22 @@ scenarios["center-squeeze"].ballots = [
 		{name: "Dr Pepper > Pepsi", choices: ["Dr Pepper", "Pepsi"], count: 22},
 		{name: "Dr Pepper > Coke", choices: ["Dr Pepper", "Coke"], count: 10}
 	];
+	
+scenarios["burlington"] = {};
+scenarios["burlington"].name = "Burlinton VT 2009";
+scenarios["burlington"].description = "The 2009 mayoral election in Burlington, VT, is an oft-cited example of a non-monotonicity failure. To see the failure, increase 'K > W' to 1124, reduce 'W > K' to 0, and reduce 'W' to 1031. Increasing support for Kiss causes Kiss to lose / Decreasing support for Montroll causes Montroll to win.";
+scenarios["burlington"].candidates = ["none", "Montroll", "Kiss", "Wright"];
+scenarios["burlington"].ballots = [
+		{name: "M > K", choices: ["Montroll", "Kiss"], count: 1332},
+		{name: "M > W", choices: ["Montroll", "Wright"], count: 767},
+		{name: "M", choices: ["Montroll", "none"], count: 455},
+		{name: "K > M", choices: ["Kiss", "Montroll"], count: 2043},
+		{name: "K > W", choices: ["Kiss", "Wright"], count: 371},
+		{name: "K", choices: ["Kiss", "none"], count: 568},
+		{name: "W > M", choices: ["Wright", "Montroll"], count: 1513},
+		{name: "W > K", choices: ["Wright", "Kiss"], count: 495},
+		{name: "W", choices: ["Wright", "none"], count: 1289}
+	];
 
 function loadScenario(key) {
 	//data.candidates = scenarios[key].candidates;
